@@ -14,5 +14,17 @@ class User_model extends CI_Model{
             'username' => $username
         )) -> row();
     }
+
+    public function save($email, $username, $password, $gender, $province, $city){
+        $this -> db -> insert('t_user', array(
+            'email' => $email,
+            'username' => $username,
+            'password' => $password,
+            'sex' => $gender,
+            'province' => $province,
+            'city' => $city
+        ));
+        return $this -> db -> affected_rows();
+    }
 }
 ?>

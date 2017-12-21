@@ -170,9 +170,17 @@
     </div>
     <div id="OSC_Footer">© 唯创网讯</div>
 </div>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
+<script src="assets/js/jquery-1.11.3.min.js"></script>\
+<script src="assets/js/city.js"></script>
 <script>
     $(function(){
+        ganged.init({
+            provinceSelector : '#province',
+            citySelector : '#city'
+        });
+
+        let bFlagSubmit=true;
+
         $('#username').on('blur',function(){
             //$.get()四个参数：url ，data ，callback ，返回数据类型
             $.get('welcome/check_name',{
@@ -180,10 +188,54 @@
             },function(data){
                 if(data=='fail'){
                     $('#name_msg').html('用户名已存在');
+                    bFlagSubmit=false;
                 }else{
                     $('#name_msg').html('用户名可用');
+                    bFlagSubmit=true;
                 }
             },'text');
+        });
+
+        $('#email').on('blur',function(){
+           let reg=/^([\w-_]+(?:\.[\w-_]+)*)@((?:[a-z0-9]+(?:-[a-zA-Z0-9]+)*)+\.[a-z]{2,6})$/i;
+           if(reg.test(this.value)){
+               $('#email_tip').html('邮箱验证通过');
+               bFlagSubmit=true;
+           }else{
+               bFlagSubmit=false;
+               $('#email_tip').html('邮箱格式不匹配，请正确输入');
+           }
+
+        });
+
+        $('#password').on('keyup', function(){
+            if(this.value.length < 4){
+                $('#password_msg').html('至少四位!');
+                bFlagSubmit=false;
+            }else{
+                $('#password_msg').html('');
+                bFlagSubmit=true;
+            }
+        });
+
+        $('#password2').on('blur', function(){
+            if(this.value != $('#password').val()){
+                $('#password2_msg').html('两次密码不一致!');
+                bFlagSubmit=false;
+            }else{
+                $('#password2_msg').html('');
+                bFlagSubmit=true;
+            }
+        });
+
+        $('#frm_reg').on('submit',function(){
+            if($('[name=gender]:checked').length == 0){
+                $('#gender_msg').html('请选择性别!');
+                bFlagSubmit = false;
+            }else{
+                bFlagSubmit = true;
+            }
+            return bFlagSubmit;
         })
     });
 </script>

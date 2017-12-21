@@ -7,10 +7,10 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
-	}
+        $this->load->view('index');
+    }
 
-	public function  login(){
+	public function login(){
 	    $this->load->view('login');
     }
 
@@ -25,9 +25,10 @@ class Welcome extends CI_Controller {
         $this->load->model('user_model');
         $query=$this->user_model->get_by_name_pwd($username,$password);
         if($query){
-            echo 'success';
+            $this -> session -> set_userdata('loginedUser', $query);
+            redirect('welcome/index');
         }else{
-            echo 'fail';
+            redirect('welcome/login');
         }
     }
 
@@ -52,5 +53,26 @@ class Welcome extends CI_Controller {
             }
         }
         //4.加载view
+    }
+
+    public function do_reg(){
+        //接收数据
+        $email = htmlspecialchars($this -> input -> post('email'));
+        $username = $this -> input -> post('username');
+        $password = $this -> input -> post('password');
+        $password2 = $this -> input -> post('password2');
+        $gender = $this -> input -> post('gender');
+        $province = $this -> input -> post('province');
+        $city = $this -> input -> post('city');
+        //验证
+        //数据库操作
+        $this -> load ->model('user_model');
+        $result=$this ->user_model->save($email, $username, $password, $gender, $province, $city);
+        if($result > 0){
+//            $this -> load -> view('login');
+            redirect('welcome/login');
+        }else{
+            $this -> load -> view('reg');
+        }
     }
 }
