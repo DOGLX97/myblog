@@ -17,6 +17,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            $sql = "select t.*, (select count(*) from t_article a where a.type_id=t.type_id) num from  t_article_type t where t.user_id=$user_id";
            return $this->db->query($sql)->result();
        }
+
+       public function save_article($title,$content,$user_id,$type_id){
+            $this->db->insert('t_article',array(
+                'content' => $content,
+                'title' => $title,
+                'user_id' => $user_id,
+                'type_id' => $type_id
+            ));
+            return $this->db->affected_rows();
+       }
    }
 
 ?>

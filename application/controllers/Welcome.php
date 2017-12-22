@@ -90,8 +90,4 @@ class Welcome extends CI_Controller {
             $this -> load -> view('reg');
         }
     }
-
-    public function new_blog(){
-        $this->load->view('new_blog');
-    }
 }

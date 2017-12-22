@@ -33,7 +33,7 @@ $loginedUser = $this->session->userdata('loginedUser');
     <div id="OSC_Content">
         <div id="AdminScreen">
             <div id="AdminPath">
-                <a href="index_logined.htm">返回我的首页</a>&nbsp;»
+                <a href="admin/index">返回我的首页</a>&nbsp;»
                 <span id="AdminTitle">发表博客</span>
             </div>
             <?php include 'admin_menu.php';?>

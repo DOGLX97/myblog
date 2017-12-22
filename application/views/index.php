@@ -70,7 +70,7 @@ $loginedUser = $this->session->userdata('loginedUser');
     </div>
     <div id="OSC_Content">
         <div class="SpaceChannel">
-            <div id="portrait"><a href="adminIndex.htm">
+            <div id="portrait"><a href="admin/index">
                     <img src="assets/images/portrait.gif" alt="Johnny" title="Johnny"
                          class="SmallPortrait" user="154693"
                          align="absmiddle">
@@ -112,7 +112,7 @@ $loginedUser = $this->session->userdata('loginedUser');
             <div class="admin SpaceModule">
                 <strong>博客管理</strong>
                 <ul class="LinkLine">
-                    <li><a href="welcome/new_blog">发表博客</a></li>
+                    <li><a href="admin/new_blog">发表博客</a></li>
                     <li><a href="blogCatalogs.htm">博客分类管理</a></li>
                     <li><a href="blogs.htm">文章管理</a></li>
                     <li><a href="blogComments.htm">网友评论管理</a></li>
