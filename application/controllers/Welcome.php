@@ -7,11 +7,24 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->view('index');
+        $loginedUser = $this -> session -> userdata('loginedUser');
+        $this -> load -> model('article_model');
+        $articles = $this -> article_model -> get_ariticles_by_user($loginedUser -> user_id);
+        $types = $this -> article_model -> get_types_by_user($loginedUser -> user_id);
+
+        $this->load->view('index', array(
+            'articles' => $articles,
+            'types' => $types
+        ));
     }
 
 	public function login(){
 	    $this->load->view('login');
+    }
+
+    public function logout(){
+	    $this->session ->unset_userdata('loginedUser');
+	    redirect('welcome/login');
     }
 
     public function check_login(){
@@ -24,6 +37,8 @@ class Welcome extends CI_Controller {
         //3.数据库操作
         $this->load->model('user_model');
         $query=$this->user_model->get_by_name_pwd($username,$password);
+//        var_dump($query);
+//        die();
         if($query){
             $this -> session -> set_userdata('loginedUser', $query);
             redirect('welcome/index');
@@ -74,5 +89,9 @@ class Welcome extends CI_Controller {
         }else{
             $this -> load -> view('reg');
         }
+    }
+
+    public function new_blog(){
+        $this->load->view('new_blog');
     }
 }
