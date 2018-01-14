@@ -5,7 +5,7 @@ $loginedUser = $this->session->userdata('loginedUser');
 <html xmlns="http://www.w3.org/1999/xhtml"><head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Language" content="zh-CN">
-  <title>测试文章2 -  Johnny的博客 - SYSIT个人博客</title>
+  <title> <?php echo $loginedUser->username; ?>的博客 - 个人博客</title>
   <base href="<?php echo site_url(); ?>">
   <link rel="stylesheet" href="assets/css/space2011.css" type="text/css" media="screen">
   <link rel="stylesheet" type="text/css" href="assets/css/jquery.css" media="screen">
