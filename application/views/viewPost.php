@@ -24,9 +24,9 @@ $loginedUser = $this->session->userdata('loginedUser');
 <div id="OSC_Screen"><!-- #BeginLibraryItem "/Library/OSC_Banner.lbi" -->
     <?php include 'admin_header.php'; ?>
 	<div id="OSC_Content"><div class="SpaceChannel">
-	<div id="portrait"><a href="#"><img src="images/portrait.gif" alt="Johnny" title="Johnny" class="SmallPortrait" user="154693" align="absmiddle"></a></div>
+	<div id="portrait"><a href="#"><img src="images/portrait.gif" alt="" title="Johnny" class="SmallPortrait" user="154693" align="absmiddle"></a></div>
     <div id="lnks">
-		<strong>Johnny的博客</strong>
+		<strong><?php echo $loginedUser->username; ?>的博客</strong>
 		<div>
 			<a href="#">TA的博客列表</a>&nbsp;|
 			<a href="javascript:sendmsg(154693)">发送留言</a>
