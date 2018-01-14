@@ -9,6 +9,7 @@ class Admin extends CI_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model('article_model');
+        $this->load->model('comment_model');
     }
 
     public function index(){
@@ -46,5 +47,51 @@ class Admin extends CI_Controller{
         $this->load->view('list_blogs', array(
             'articles' => $articles
         ));
+    }
+
+    public function delete_articles(){
+        $ids = $this->input->get('ids');
+
+        $rows = $this->article_model->delete_articles($ids);
+        if($rows > 0){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
+
+    public function get_blog_by_id(){
+        //接数据
+        $id=$this->input->get('id');
+        $user_id=$this->session->userdata('loginedUser')->user_id;
+        $results = $this->article_model->get_ariticles_by_user($user_id);
+        $comment_results = $this->comment_model->get_comment_by_articleid($id);
+        $prevArticle = null;
+        $nextArticle = null;
+        foreach ($results as $index=>$result){
+            if($id == $result->article_id){
+                $row = $result;
+                if($index>0){
+                    $prevArticle = $results[$index-1];
+                }
+
+                if($index<count($results)-1){
+                    $nextArticle = $results[$index+1];
+                }
+
+                break;
+            }
+        }
+        //到页面
+        if($results){
+            $this->load->view('viewPost',array(
+                'row' => $row,
+                'prevArticle' => $prevArticle,
+                'nextArticle' => $nextArticle,
+                'comment_results' => $comment_results
+            ));
+        }else{
+            echo 'fail';
+        }
     }
 }
